@@ -9,7 +9,7 @@
 #include <boost/type_traits/alignment_of.hpp>
 
 int main() {
-    BOOST_STATIC_ASSERT_MSG(
+    static_assert(
         boost::alignment_of<boost::typeindex::detail::ctti_data>::value == boost::alignment_of<char>::value,
         "Alignments of boost::typeindex::detail::ctti_data and char differ. "
         "It is unsafe to reinterpret_cast between them."

@@ -15,7 +15,6 @@
 
 #include <cstring>
 #include <boost/config.hpp>
-#include <boost/static_assert.hpp>
 #include <boost/type_traits/integral_constant.hpp>
 
 #ifdef BOOST_HAS_PRAGMA_ONCE
@@ -102,7 +101,7 @@
 namespace boost { namespace typeindex { namespace detail {
     template <bool Condition>
     BOOST_CXX14_CONSTEXPR inline void assert_compile_time_legths() BOOST_NOEXCEPT {
-        BOOST_STATIC_ASSERT_MSG(
+        static_assert(
             Condition,
             "TypeIndex library is misconfigured for your compiler. "
             "Please define BOOST_TYPE_INDEX_CTTI_USER_DEFINED_PARSING to correct values. See section "
@@ -112,7 +111,7 @@ namespace boost { namespace typeindex { namespace detail {
 
     template <class T>
     BOOST_CXX14_CONSTEXPR inline void failed_to_get_function_name() BOOST_NOEXCEPT {
-        BOOST_STATIC_ASSERT_MSG(
+        static_assert(
             sizeof(T) && false,
             "TypeIndex library could not detect your compiler. "
             "Please make the BOOST_TYPE_INDEX_FUNCTION_SIGNATURE macro use "

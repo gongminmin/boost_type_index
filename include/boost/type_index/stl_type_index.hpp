@@ -29,7 +29,6 @@
 #include <typeinfo>
 #include <cstring>                                  // std::strcmp, std::strlen, std::strstr
 #include <stdexcept>
-#include <boost/static_assert.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/core/demangle.hpp>
 #include <boost/type_traits/conditional.hpp>
