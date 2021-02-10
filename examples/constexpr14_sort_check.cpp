@@ -4,9 +4,8 @@
 // (See the accompanying file LICENSE_1_0.txt
 // or a copy at <http://www.boost.org/LICENSE_1_0.txt>.)
 
-#include <boost/config.hpp>
 
-#if !defined(BOOST_NO_CXX14_CONSTEXPR) && !defined(BOOST_NO_CXX11_CONSTEXPR) && !defined(BOOST_NO_CXX11_VARIADIC_TEMPLATES) && (!defined(_MSC_VER) || (_MSC_VER > 1916))
+#if !defined(_MSC_VER) || (_MSC_VER > 1916)
 
 //[type_index_constexpr14_sort_check_example
 /*`
@@ -68,7 +67,7 @@ int main() {
 }
 //] [/type_index_constexpr14_sort_check_example]
 
-#else // #if !defined(BOOST_NO_CXX14_CONSTEXPR) && !defined(BOOST_NO_CXX11_CONSTEXPR) && !defined(BOOST_NO_CXX11_VARIADIC_TEMPLATES) && (!defined(_MSC_VER) || (_MSC_VER > 1916))
+#else // #if !defined(_MSC_VER) || (_MSC_VER > 1916)
 
 int main() {}
 

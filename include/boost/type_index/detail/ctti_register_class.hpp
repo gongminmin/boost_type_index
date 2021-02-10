@@ -22,7 +22,7 @@
 namespace boost { namespace typeindex { namespace detail {
 
 template <class T>
-inline const ctti_data& ctti_construct_typeid_ref(const T*) BOOST_NOEXCEPT {
+inline const ctti_data& ctti_construct_typeid_ref(const T*) noexcept {
     return ctti_construct<T>();
 }
 
@@ -30,7 +30,7 @@ inline const ctti_data& ctti_construct_typeid_ref(const T*) BOOST_NOEXCEPT {
 
 /// @cond
 #define BOOST_TYPE_INDEX_REGISTER_CLASS                                                                             \
-    virtual const boost::typeindex::detail::ctti_data& boost_type_index_type_id_runtime_() const BOOST_NOEXCEPT {   \
+    virtual const boost::typeindex::detail::ctti_data& boost_type_index_type_id_runtime_() const noexcept {         \
         return boost::typeindex::detail::ctti_construct_typeid_ref(this);                                           \
     }                                                                                                               \
 /**/

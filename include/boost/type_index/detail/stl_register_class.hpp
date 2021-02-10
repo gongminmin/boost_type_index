@@ -22,7 +22,7 @@
 namespace boost { namespace typeindex { namespace detail {
 
 template <class T>
-inline const stl_type_index::type_info_t& stl_construct_typeid_ref(const T*) BOOST_NOEXCEPT {
+inline const stl_type_index::type_info_t& stl_construct_typeid_ref(const T*) noexcept {
     return typeid(T);
 }
 
@@ -30,7 +30,7 @@ inline const stl_type_index::type_info_t& stl_construct_typeid_ref(const T*) BOO
 
 /// @cond
 #define BOOST_TYPE_INDEX_REGISTER_CLASS                                                                                     \
-    virtual const boost::typeindex::stl_type_index::type_info_t& boost_type_index_type_id_runtime_() const BOOST_NOEXCEPT { \
+    virtual const boost::typeindex::stl_type_index::type_info_t& boost_type_index_type_id_runtime_() const noexcept {       \
         return boost::typeindex::detail::stl_construct_typeid_ref(this);                                                    \
     }                                                                                                                       \
 /**/

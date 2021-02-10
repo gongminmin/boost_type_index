@@ -71,8 +71,8 @@ void search_same() {
 }
 
 template <class T, std::size_t N>
-BOOST_CXX14_CONSTEXPR bool in_namespace(const char (&ns)[N]) BOOST_NOEXCEPT {
-    BOOST_CXX14_CONSTEXPR const char* name = boost::typeindex::ctti_type_index::type_id<T>().raw_name();
+constexpr bool in_namespace(const char (&ns)[N]) noexcept {
+    constexpr const char* name = boost::typeindex::ctti_type_index::type_id<T>().raw_name();
     for (std::size_t i = 0; i < N - 1; ++i)
         if (name[i] != ns[i])
             return false;
@@ -81,67 +81,67 @@ BOOST_CXX14_CONSTEXPR bool in_namespace(const char (&ns)[N]) BOOST_NOEXCEPT {
 }
 
 template <class T>
-BOOST_CXX14_CONSTEXPR bool is_boost_namespace() BOOST_NOEXCEPT {
+constexpr bool is_boost_namespace() noexcept {
     return in_namespace<T>("boost::") || in_namespace<T>("class boost::") || in_namespace<T>("struct boost::");
 }
 
 void constexpr_test() {
     using namespace boost::typeindex;
 
-    BOOST_CXX14_CONSTEXPR ctti_type_index t_int0 = ctti_type_index::type_id<int>();
+    constexpr ctti_type_index t_int0 = ctti_type_index::type_id<int>();
     (void)t_int0;
 
-    BOOST_CXX14_CONSTEXPR ctti_type_index t_short0 = ctti_type_index::type_id<short>();
+    constexpr ctti_type_index t_short0 = ctti_type_index::type_id<short>();
     (void)t_short0;
 
-    BOOST_CXX14_CONSTEXPR ctti_type_index t_int1 = ctti_type_index::type_id<int>();
+    constexpr ctti_type_index t_int1 = ctti_type_index::type_id<int>();
     (void)t_int1;
 
-    BOOST_CXX14_CONSTEXPR ctti_type_index t_short1 = ctti_type_index::type_id<short>();
+    constexpr ctti_type_index t_short1 = ctti_type_index::type_id<short>();
     (void)t_short1;
 
 // Following tests are known to fail on _MSC_VER == 1916.
 #if !defined(_MSC_VER) || _MSC_VER > 1916
 
-    BOOST_CXX14_CONSTEXPR bool same0 = (t_int0 == t_int1);
+    constexpr bool same0 = (t_int0 == t_int1);
     BOOST_TEST(same0);
 
-    BOOST_CXX14_CONSTEXPR bool same1 = (t_short1 == t_short0);
+    constexpr bool same1 = (t_short1 == t_short0);
     BOOST_TEST(same1);
 
-    BOOST_CXX14_CONSTEXPR bool same2 = (t_int1 == t_int1);
+    constexpr bool same2 = (t_int1 == t_int1);
     BOOST_TEST(same2);
 
-    BOOST_CXX14_CONSTEXPR bool same3 = (t_short0 == t_short0);
+    constexpr bool same3 = (t_short0 == t_short0);
     BOOST_TEST(same3);
 
-    BOOST_CXX14_CONSTEXPR bool same4 = !(t_short0 < t_short0 || t_short0 > t_short0);
+    constexpr bool same4 = !(t_short0 < t_short0 || t_short0 > t_short0);
     BOOST_TEST(same4);
 
-    BOOST_CXX14_CONSTEXPR bool same5 = (t_short0 <= t_short0 && t_short0 >= t_short0);
+    constexpr bool same5 = (t_short0 <= t_short0 && t_short0 >= t_short0);
     BOOST_TEST(same5);
 
 
-    BOOST_CXX14_CONSTEXPR bool not_same0 = (t_int0 != t_short1);
+    constexpr bool not_same0 = (t_int0 != t_short1);
     BOOST_TEST(not_same0);
 
-    BOOST_CXX14_CONSTEXPR bool not_same1 = (t_int1 != t_short0);
+    constexpr bool not_same1 = (t_int1 != t_short0);
     BOOST_TEST(not_same1);
 
-    BOOST_CXX14_CONSTEXPR bool not_same2 = (t_int1 < t_short0 || t_int1 > t_short0);
+    constexpr bool not_same2 = (t_int1 < t_short0 || t_int1 > t_short0);
     BOOST_TEST(not_same2);
 
 
-    BOOST_CXX14_CONSTEXPR const char* int_name = t_int0.name();
+    constexpr const char* int_name = t_int0.name();
     BOOST_TEST(*int_name != '\0');
 
-    BOOST_CXX14_CONSTEXPR const char* short_name = t_short0.name();
+    constexpr const char* short_name = t_short0.name();
     BOOST_TEST(*short_name != '\0');
 
-    BOOST_CXX14_CONSTEXPR bool in_namespace = is_boost_namespace<ctti_type_index>();
+    constexpr bool in_namespace = is_boost_namespace<ctti_type_index>();
     BOOST_TEST(in_namespace);
 
-    BOOST_CXX14_CONSTEXPR bool not_in_namespace = !is_boost_namespace<std::string>();
+    constexpr bool not_in_namespace = !is_boost_namespace<std::string>();
     BOOST_TEST(not_in_namespace);
 
 #endif // #if !defined(_MSC_VER) || _MSC_VER > 1916

@@ -98,19 +98,19 @@ class my_type_index: public boost::typeindex::type_index_facade<my_type_index, d
 public:
     typedef detail::my_typeinfo type_info_t;
 
-    inline my_type_index() BOOST_NOEXCEPT
+    inline my_type_index() noexcept
         : data_(&detail::my_typeinfo_construct<void>())
     {}
 
-    inline my_type_index(const type_info_t& data) BOOST_NOEXCEPT
+    inline my_type_index(const type_info_t& data) noexcept
         : data_(&data)
     {}
 
-    inline const type_info_t&  type_info() const BOOST_NOEXCEPT {
+    inline const type_info_t&  type_info() const noexcept {
         return *data_;
     }
 
-    inline const char*  raw_name() const BOOST_NOEXCEPT {
+    inline const char*  raw_name() const noexcept {
         return data_->type_;
     }
 
@@ -119,17 +119,17 @@ public:
     }
 
     template <class T>
-    inline static my_type_index type_id() BOOST_NOEXCEPT {
+    inline static my_type_index type_id() noexcept {
         return detail::my_typeinfo_construct<T>();
     }
 
     template <class T>
-    inline static my_type_index type_id_with_cvr() BOOST_NOEXCEPT {
+    inline static my_type_index type_id_with_cvr() noexcept {
         return detail::my_typeinfo_construct<T>();
     }
 
     template <class T>
-    inline static my_type_index type_id_runtime(const T& variable) BOOST_NOEXCEPT;
+    inline static my_type_index type_id_runtime(const T& variable) noexcept;
 };
 
 } // namespace my_namespace
@@ -168,7 +168,7 @@ namespace my_namespace { namespace detail {
 */
 namespace my_namespace {
     template <class T>
-    my_type_index my_type_index::type_id_runtime(const T& variable) BOOST_NOEXCEPT {
+    my_type_index my_type_index::type_id_runtime(const T& variable) noexcept {
         // Classes that were marked with `MY_TYPEINDEX_REGISTER_CLASS` will have a
         // `type_id_runtime()` method.
         return variable.type_id_runtime();

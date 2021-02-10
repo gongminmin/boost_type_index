@@ -28,7 +28,7 @@ namespace boost { namespace typeindex {
 /// \return If there exists a valid conversion from U* to T, returns a T that points to
 /// an address suitably offset from u. If no such conversion exists, returns NULL.
 template<typename T, typename U>
-T runtime_cast(U* u) BOOST_NOEXCEPT {
+T runtime_cast(U* u) noexcept {
     typedef typename std::remove_pointer<T>::type impl_type;
     return detail::runtime_cast_impl<impl_type>(u, std::is_base_of<T, U>());
 }
@@ -39,7 +39,7 @@ T runtime_cast(U* u) BOOST_NOEXCEPT {
 /// \return If there exists a valid conversion from U* to T, returns a T that points to
 /// an address suitably offset from u. If no such conversion exists, returns NULL.
 template<typename T, typename U>
-T runtime_cast(U const* u) BOOST_NOEXCEPT {
+T runtime_cast(U const* u) noexcept {
     typedef typename std::remove_pointer<T>::type impl_type;
     return detail::runtime_cast_impl<impl_type>(u, std::is_base_of<T, U>());
 }
@@ -52,7 +52,7 @@ T runtime_cast(U const* u) BOOST_NOEXCEPT {
 /// that points to an address suitably offset from u.
 /// If no such conversion exists, returns NULL.
 template<typename T, typename U>
-T* runtime_pointer_cast(U* u) BOOST_NOEXCEPT {
+T* runtime_pointer_cast(U* u) noexcept {
     return detail::runtime_cast_impl<T>(u, std::is_base_of<T, U>());
 }
 
@@ -64,7 +64,7 @@ T* runtime_pointer_cast(U* u) BOOST_NOEXCEPT {
 /// that points to an address suitably offset from u.
 /// If no such conversion exists, returns NULL.
 template<typename T, typename U>
-T const* runtime_pointer_cast(U const* u) BOOST_NOEXCEPT {
+T const* runtime_pointer_cast(U const* u) noexcept {
     return detail::runtime_cast_impl<T>(u, std::is_base_of<T, U>());
 }
 

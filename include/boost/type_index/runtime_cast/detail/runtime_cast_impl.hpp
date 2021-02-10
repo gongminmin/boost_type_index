@@ -28,24 +28,24 @@ namespace boost { namespace typeindex {
 namespace detail {
 
 template<typename T, typename U>
-T* runtime_cast_impl(U* u, boost::true_type) BOOST_NOEXCEPT {
+T* runtime_cast_impl(U* u, boost::true_type) noexcept {
     return u;
 }
 
 template<typename T, typename U>
-T const* runtime_cast_impl(U const* u, boost::true_type) BOOST_NOEXCEPT {
+T const* runtime_cast_impl(U const* u, boost::true_type) noexcept {
     return u;
 }
 
 template<typename T, typename U>
-T* runtime_cast_impl(U* u, boost::false_type) BOOST_NOEXCEPT {
+T* runtime_cast_impl(U* u, boost::false_type) noexcept {
     return const_cast<T*>(static_cast<T const*>(
         u->boost_type_index_find_instance_(boost::typeindex::type_id<T>())
     ));
 }
 
 template<typename T, typename U>
-T const* runtime_cast_impl(U const* u, boost::false_type) BOOST_NOEXCEPT {
+T const* runtime_cast_impl(U const* u, boost::false_type) noexcept {
     return static_cast<T const*>(u->boost_type_index_find_instance_(boost::typeindex::type_id<T>()));
 }
 

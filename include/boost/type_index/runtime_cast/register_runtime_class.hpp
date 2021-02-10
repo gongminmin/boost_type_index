@@ -123,7 +123,7 @@ inline type_index runtime_class_construct_type_id(T const*) {
 /// \param base_class_seq A Boost.Preprocessor sequence of the current class' direct bases, or
 /// BOOST_TYPE_INDEX_NO_BASE_CLASS if this class has no direct base classes.
 #define BOOST_TYPE_INDEX_IMPLEMENT_RUNTIME_CAST(base_class_seq)                                                          \
-    virtual void const* boost_type_index_find_instance_(boost::typeindex::type_index const& idx) const BOOST_NOEXCEPT {  \
+    virtual void const* boost_type_index_find_instance_(boost::typeindex::type_index const& idx) const noexcept {        \
         if(idx == boost::typeindex::detail::runtime_class_construct_type_id(this))                                       \
             return this;                                                                                                 \
          BOOST_PP_SEQ_FOR_EACH(BOOST_TYPE_INDEX_CHECK_BASE_, _, base_class_seq)                                          \

@@ -4,13 +4,10 @@
 // (See the accompanying file LICENSE_1_0.txt
 // or a copy at <http://www.boost.org/LICENSE_1_0.txt>.)
 
-#include <boost/config.hpp>
-
 template <class T>
 void do_something(const T&) {}
 
 
-#if !defined(BOOST_NO_CXX14_CONSTEXPR) && !defined(BOOST_NO_CXX11_CONSTEXPR)
 // Implementation of this function is not essential for the example
 template <std::size_t N>
 constexpr bool starts_with(const char* name, const char (&ns)[N]) noexcept {
@@ -88,10 +85,3 @@ int main() {
     // s.serialize(sh); // Fails the static_assert!
 }
 //] [/type_index_constexpr14_namespace_example]
-
-#else // #if !defined(BOOST_NO_CXX14_CONSTEXPR) && !defined(BOOST_NO_CXX11_CONSTEXPR)
-
-int main() {}
-
-#endif
-

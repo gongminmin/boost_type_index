@@ -166,7 +166,6 @@ void type_id_storing_modifiers()
     test_with_modofiers<int&, const volatile int>();
     test_with_modofiers<int&, const volatile int&>();
 
-#ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
     test_with_modofiers<int&&, const int>();
     test_with_modofiers<int&&, const int&>();
     test_with_modofiers<int&&, const int&&>();
@@ -177,7 +176,6 @@ void type_id_storing_modifiers()
     test_with_modofiers<int&&, const volatile int>();
     test_with_modofiers<int&&, const volatile int&>();
     test_with_modofiers<int&&, const volatile int&&>();
-#endif
 }
 
 template <class T>
