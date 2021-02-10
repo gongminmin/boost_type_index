@@ -9,14 +9,10 @@
 // #include <boost/type_index/runtime_reference_cast.hpp>
 
 #include <boost/type_index/runtime_cast.hpp>
-#include <boost/type_index/runtime_cast/boost_shared_ptr_cast.hpp>
-#include <boost/smart_ptr/make_shared.hpp>
 
 #include <boost/core/lightweight_test.hpp>
 
-#if !defined(BOOST_NO_CXX11_SMART_PTR)
-#  include <boost/type_index/runtime_cast/std_shared_ptr_cast.hpp>
-#endif
+#include <boost/type_index/runtime_cast/std_shared_ptr_cast.hpp>
 
 // Classes include a member variable "name" with the
 // name of the class hard coded so we can be sure that
@@ -247,26 +243,14 @@ void diamond_non_virtual()
     BOOST_TEST_EQ(l1_b->name, "level1_b");
 }
 
-void boost_shared_ptr()
-{
-    using namespace boost::typeindex;
-    boost::shared_ptr<single_derived> d = boost::make_shared<single_derived>();
-    boost::shared_ptr<base> b = d;
-    boost::shared_ptr<single_derived> d2 = runtime_pointer_cast<single_derived>(b);
-    BOOST_TEST_NE(d2, boost::shared_ptr<single_derived>());
-    BOOST_TEST_EQ(d2->name, "single_derived");
-}
-
 void std_shared_ptr()
 {
-#if !defined(BOOST_NO_CXX11_SMART_PTR)
     using namespace boost::typeindex;
     std::shared_ptr<single_derived> d = std::make_shared<single_derived>();
     std::shared_ptr<base> b = d;
     std::shared_ptr<single_derived> d2 = runtime_pointer_cast<single_derived>(b);
     BOOST_TEST_NE(d2, std::shared_ptr<single_derived>());
     BOOST_TEST_EQ(d2->name, "single_derived");
-#endif
 }
 
 void register_runtime_class()
@@ -289,7 +273,6 @@ int main() {
     const_pointer_interface();
     const_reference_interface();
     diamond_non_virtual();
-    boost_shared_ptr();
     std_shared_ptr();
     register_runtime_class();
     return boost::report_errors();

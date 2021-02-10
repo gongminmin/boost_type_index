@@ -19,7 +19,6 @@ target_link_libraries(boost_type_index
         Boost::container_hash
         Boost::core
         Boost::preprocessor
-        Boost::smart_ptr
         Boost::throw_exception
         Boost::type_traits
 )
