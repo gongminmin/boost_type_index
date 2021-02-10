@@ -13,7 +13,7 @@
 /// \brief Contains the overload of boost::typeindex::runtime_cast for
 /// reference types.
 
-#include <boost/core/addressof.hpp>
+#include <memory>
 #include <boost/type_index/runtime_cast/detail/runtime_cast_impl.hpp>
 #include <boost/throw_exception.hpp>
 #include <type_traits>
@@ -38,7 +38,7 @@ template<typename T, typename U>
 typename std::add_lvalue_reference<T>::type runtime_cast(U& u) {
     typedef typename std::remove_reference<T>::type impl_type;
     impl_type* value = detail::runtime_cast_impl<impl_type>(
-        boost::addressof(u), std::is_base_of<T, U>());
+        std::addressof(u), std::is_base_of<T, U>());
     if(!value)
         BOOST_THROW_EXCEPTION(bad_runtime_cast());
     return *value;
@@ -53,7 +53,7 @@ template<typename T, typename U>
 typename std::add_lvalue_reference<const T>::type runtime_cast(U const& u) {
     typedef typename std::remove_reference<T>::type impl_type;
     impl_type* value = detail::runtime_cast_impl<impl_type>(
-        boost::addressof(u), std::is_base_of<T, U>());
+        std::addressof(u), std::is_base_of<T, U>());
     if(!value)
         BOOST_THROW_EXCEPTION(bad_runtime_cast());
     return *value;
