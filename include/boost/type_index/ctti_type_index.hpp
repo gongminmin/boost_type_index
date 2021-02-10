@@ -23,8 +23,7 @@
 
 #include <cstring>
 #include <boost/container_hash/hash.hpp>
-#include <boost/type_traits/remove_cv.hpp>
-#include <boost/type_traits/remove_reference.hpp>
+#include <type_traits>
 
 #ifdef BOOST_HAS_PRAGMA_ONCE
 # pragma once
@@ -161,8 +160,8 @@ BOOST_CXX14_CONSTEXPR inline bool ctti_type_index::before(const ctti_type_index&
 
 template <class T>
 BOOST_CXX14_CONSTEXPR inline ctti_type_index ctti_type_index::type_id() BOOST_NOEXCEPT {
-    typedef BOOST_DEDUCED_TYPENAME boost::remove_reference<T>::type no_ref_t;
-    typedef BOOST_DEDUCED_TYPENAME boost::remove_cv<no_ref_t>::type no_cvr_t;
+    typedef BOOST_DEDUCED_TYPENAME std::remove_reference<T>::type no_ref_t;
+    typedef BOOST_DEDUCED_TYPENAME std::remove_cv<no_ref_t>::type no_cvr_t;
     return ctti_type_index(boost::detail::ctti<no_cvr_t>::n());
 }
 

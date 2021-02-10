@@ -31,12 +31,7 @@
 #include <stdexcept>
 #include <boost/throw_exception.hpp>
 #include <boost/core/demangle.hpp>
-#include <boost/type_traits/conditional.hpp>
-#include <boost/type_traits/is_const.hpp>
-#include <boost/type_traits/is_reference.hpp>
-#include <boost/type_traits/is_volatile.hpp>
-#include <boost/type_traits/remove_cv.hpp>
-#include <boost/type_traits/remove_reference.hpp>
+#include <type_traits>
 
 #if (defined(_MSC_VER) && _MSC_VER > 1600) \
     || (defined(__GNUC__) && __GNUC__ == 4 && __GNUC_MINOR__ > 5 && defined(__GXX_EXPERIMENTAL_CXX0X__)) \
@@ -48,8 +43,6 @@
 
 #if (defined(__EDG_VERSION__) && __EDG_VERSION__ < 245) \
         || (defined(__sgi) && defined(_COMPILER_VERSION) && _COMPILER_VERSION <= 744)
-#   include <boost/type_traits/is_signed.hpp>
-#   include <boost/type_traits/make_signed.hpp>
 #   include <boost/type_traits/type_identity.hpp>
 #endif
 
@@ -223,17 +216,17 @@ inline bool stl_type_index::before(const stl_type_index& rhs) const BOOST_NOEXCE
 
 template <class T>
 inline stl_type_index stl_type_index::type_id() BOOST_NOEXCEPT {
-    typedef BOOST_DEDUCED_TYPENAME boost::remove_reference<T>::type no_ref_t;
-    typedef BOOST_DEDUCED_TYPENAME boost::remove_cv<no_ref_t>::type no_cvr_prefinal_t;
+    typedef BOOST_DEDUCED_TYPENAME std::remove_reference<T>::type no_ref_t;
+    typedef BOOST_DEDUCED_TYPENAME std::remove_cv<no_ref_t>::type no_cvr_prefinal_t;
 
     #  if (defined(__EDG_VERSION__) && __EDG_VERSION__ < 245) \
         || (defined(__sgi) && defined(_COMPILER_VERSION) && _COMPILER_VERSION <= 744)
 
         // Old EDG-based compilers seem to mistakenly distinguish 'integral' from 'signed integral'
         // in typeid() expressions. Full template specialization for 'integral' fixes that issue:
-        typedef BOOST_DEDUCED_TYPENAME boost::conditional<
-            boost::is_signed<no_cvr_prefinal_t>::value,
-            boost::make_signed<no_cvr_prefinal_t>,
+        typedef BOOST_DEDUCED_TYPENAME std::conditional<
+            std::is_signed<no_cvr_prefinal_t>::value,
+            std::make_signed<no_cvr_prefinal_t>,
             boost::type_identity<no_cvr_prefinal_t>
         >::type no_cvr_prefinal_lazy_t;
 
@@ -251,8 +244,8 @@ namespace detail {
 
 template <class T>
 inline stl_type_index stl_type_index::type_id_with_cvr() BOOST_NOEXCEPT {
-    typedef BOOST_DEDUCED_TYPENAME boost::conditional<
-        boost::is_reference<T>::value ||  boost::is_const<T>::value || boost::is_volatile<T>::value,
+    typedef BOOST_DEDUCED_TYPENAME std::conditional<
+        std::is_reference<T>::value ||  std::is_const<T>::value || std::is_volatile<T>::value,
         detail::cvr_saver<T>,
         T
     >::type type;

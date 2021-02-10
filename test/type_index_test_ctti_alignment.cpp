@@ -6,11 +6,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 #include <boost/type_index/ctti_type_index.hpp>
-#include <boost/type_traits/alignment_of.hpp>
+#include <type_traits>
 
 int main() {
     static_assert(
-        boost::alignment_of<boost::typeindex::detail::ctti_data>::value == boost::alignment_of<char>::value,
+        std::alignment_of<boost::typeindex::detail::ctti_data>::value == std::alignment_of<char>::value,
         "Alignments of boost::typeindex::detail::ctti_data and char differ. "
         "It is unsafe to reinterpret_cast between them."
     );

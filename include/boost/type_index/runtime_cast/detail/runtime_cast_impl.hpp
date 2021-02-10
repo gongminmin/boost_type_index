@@ -18,7 +18,6 @@
 /// desire opt in functionality instead of enabling it system wide.
 
 #include <boost/type_index.hpp>
-#include <boost/type_traits/integral_constant.hpp>
 
 #ifdef BOOST_HAS_PRAGMA_ONCE
 # pragma once

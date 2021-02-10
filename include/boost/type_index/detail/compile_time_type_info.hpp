@@ -15,7 +15,7 @@
 
 #include <cstring>
 #include <boost/config.hpp>
-#include <boost/type_traits/integral_constant.hpp>
+#include <type_traits>
 
 #ifdef BOOST_HAS_PRAGMA_ONCE
 # pragma once
@@ -199,7 +199,7 @@ namespace boost { namespace typeindex { namespace detail {
         assert_compile_time_legths<(ArrayLength > ctti_skip_size_at_begin + ctti_skip_size_at_end)>();
         return skip_begining_runtime<ArrayLength - ctti_skip_size_at_begin>(
             begin + ctti_skip_size_at_begin,
-            boost::integral_constant<bool, ctti_skip_more_at_runtime>()
+            std::integral_constant<bool, ctti_skip_more_at_runtime>()
         );
     }
 
